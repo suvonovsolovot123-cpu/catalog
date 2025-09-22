@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<!-- saved from url=(0051)https://web-sandbox.oaiusercontent.com/index.html?# -->
+<html lang="uz"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Musiqa Asboblari Katalogi</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f4f6f9;
+    }
+    header {
+      background: linear-gradient(90deg, #222, #444);
+      color: #fff;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+    header h1 { margin: 0; font-size: 22px; }
+    nav a {
+      color: #fff;
+      margin-left: 20px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      color: #ffd700;
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin: 20px;
+    }
+    .search-box input, .filter select, .sort select {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .catalog {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 15px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+      position: relative;
+    }
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+    }
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 10px;
+    }
+    .card h3 { margin: 10px 0 5px; font-size: 18px; }
+    .card p { font-size: 14px; color: #555; min-height: 40px; }
+    .price { font-weight: bold; margin: 10px 0; font-size: 16px; color: #333; }
+    .btn {
+      background: #222;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.3s;
+    }
+    .btn:hover { background: #444; }
+    .favorite {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #fff;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      border-radius: 50%;
+      width: 35px;
+      height: 35px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      transition: background 0.3s, color 0.3s;
+    }
+    .favorite.active { color: red; }
+    #favoritesPage, #cartPage, #checkoutPage, #loginPage, #registerPage, #profilePage, #forgotPage {
+      display: none;
+      padding: 20px;
+    }
+    #favoritesPage h2, #cartPage h2, #checkoutPage h2, #loginPage h2, #registerPage h2, #profilePage h2, #forgotPage h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    form {
+      max-width: 400px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    form input, form select, form button {
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    form button {
+      background: #222;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+    form button:hover { background: #444; }
+    .profile-box {
+      max-width: 500px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+    .forgot-link {
+      text-align: center;
+      margin-top: 10px;
+    }
+    .forgot-link a {
+      color: #007bff;
+      text-decoration: none;
+    }
+    .forgot-link a:hover { text-decoration: underline; }
+    @media (max-width: 600px) {
+      .search-box input, .filter select, .sort select { width: 90%; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🎶 Musiqa Asboblari</h1>
+    <nav>
+      <a href="https://web-sandbox.oaiusercontent.com/index.html?#" id="homeLink">Bosh sahifa</a>
+      <a href="https://web-sandbox.oaiusercontent.com/index.html?#" id="favoritesLink">Sevimlilar</a>
+      <a href="https://web-sandbox.oaiusercontent.com/index.html?#" id="cartLink">Savat</a>
+      <a href="https://web-sandbox.oaiusercontent.com/index.html?#" id="checkoutLink">To‘lov</a>
+      <a href="https://web-sandbox.oaiusercontent.com/index.html?#" id="loginLink">Kirish</a>
+      <a href="https://web-sandbox.oaiusercontent.com/index.html?#" id="registerLink">Ro‘yxatdan o‘tish</a>
+      <a href="https://web-sandbox.oaiusercontent.com/index.html?#" id="profileLink">Profil</a>
+    </nav>
+  </header>
+
+  <div id="homePage">
+    <section class="catalog">
+      <div class="card">
+        <button class="favorite">❤</button>
+        <img src="./Guitar_(cropped).jpg" alt="Gitara">
+        <h3>Gitara</h3>
+        <p>Akustik gitara — boshlovchilar va professional musiqachilar uchun qulay.</p>
+        <div class="price">1 200 000 so‘m</div>
+        <button class="btn">Savatga qo‘shish</button>
+      </div>
+
+      <div class="card">
+        <button class="favorite">❤</button>
+        <img src="./Violin_VL100.png" alt="Skripka">
+        <h3>Skripka</h3>
+        <p>Klassik asbob, professional musiqiy ta'lim uchun mos.</p>
+        <div class="price">3 500 000 so‘m</div>
+        <button class="btn">Savatga qo‘shish</button>
+      </div>
+
+      <div class="card">
+        <button class="favorite">❤</button>
+        <img src="./Drum_kit_2006-07-06_1.jpg" alt="Baraban">
+        <h3>Baraban</h3>
+        <p>Ritmni his qilish uchun ajoyib tanlov.</p>
+        <div class="price">5 000 000 so‘m</div>
+        <button class="btn">Savatga qo‘shish</button>
+      </div>
+
+      <div class="card">
+        <button class="favorite">❤</button>
+        <img src="./Piano2.jpg" alt="Pianino">
+        <h3>Pianino</h3>
+        <p>Klassik va zamonaviy musiqada keng qo‘llaniladigan asbob.</p>
+        <div class="price">12 000 000 so‘m</div>
+        <button class="btn">Savatga qo‘shish</button>
+      </div>
+
+      <div class="card">
+        <button class="favorite">❤</button>
+        <img src="./Trumpet_1.jpg" alt="Truba">
+        <h3>Truba</h3>
+        <p>Yuqori ovozli puflab chalinadigan asbob.</p>
+        <div class="price">2 800 000 so‘m</div>
+        <button class="btn">Savatga qo‘shish</button>
+      </div>
+
+      <div class="card">
+        <button class="favorite">❤</button>
+        <img src="./Saxophone_alto.jpg" alt="Saksofon">
+        <h3>Saksofon</h3>
+        <p>Caz va estrada musiqasida keng qo‘llaniladi.</p>
+        <div class="price">4 700 000 so‘m</div>
+        <button class="btn">Savatga qo‘shish</button>
+      </div>
+    </section>
+  </div>
+
+  <div id="favoritesPage">
+    <h2>❤ Sevimlilar</h2>
+    <section class="catalog" id="favoritesCatalog"></section>
+  </div>
+
+  <div id="cartPage">
+    <h2>🛒 Savat</h2>
+    <section class="catalog" id="cartCatalog"></section>
+    <button id="goCheckout" class="btn">To‘lovga o‘tish</button>
+  </div>
+
+  <div id="checkoutPage">
+    <h2>💳 To‘lov</h2>
+    <form id="checkoutForm">
+      <input type="text" placeholder="Ism Familiya" required="">
+      <input type="text" placeholder="Manzil" required="">
+      <input type="text" placeholder="Telefon raqam" required="">
+      <select required="">
+        <option value="">To‘lov usulini tanlang</option>
+        <option value="card">Karta orqali</option>
+        <option value="naqd">Naqd</option>
+      </select>
+      <button type="submit">Buyurtmani tasdiqlash</button>
+    </form>
+  </div>
+
+  <div id="loginPage">
+    <h2>🔑 Kirish</h2>
+    <form id="loginForm">
+      <input type="text" placeholder="Email yoki Login" required="">
+      <input type="password" placeholder="Parol" required="">
+      <button type="submit">Kirish</button>
+    </form>
+    <div class="forgot-link">
+      <a href="https://web-sandbox.oaiusercontent.com/index.html?#" id="forgotLink">Parolni unutdingizmi?</a>
+    </div>
+  </div>
+
+  <div id="registerPage">
+    <h2>📝 Ro‘yxatdan o‘tish</h2>
+    <form id="registerForm">
+      <input type="text" placeholder="Ism Familiya" required="">
+      <input type="email" placeholder="Email" required="">
+      <input type="password" placeholder="Parol" required="">
+      <button type="submit">Ro‘yxatdan o‘tish</button>
+    </form>
+  </div>
+
+  <div id="profilePage">
+    <h2>👤 Profil</h2>
+    <div class="profile-box">
+      <p><strong>Ism:</strong> <span id="profileName">—</span></p>
+      <p><strong>Email:</strong> <span id="profileEmail">—</span></p>
+      <button id="logoutBtn" class="btn">Chiqish</button>
+    </div>
+  </div>
+
+  <div id="forgotPage">
+    <h2>🔒 Parolni Tiklash</h2>
+    <form id="forgotForm">
+      <input type="email" placeholder="Emailingizni kiriting" required="">
+      <button type="submit">Parolni tiklash havolasini yuborish</button>
+    </form>
+  </div>
+
+  <script>
+    const homePage = document.getElementById('homePage');
+    const favoritesPage = document.getElementById('favoritesPage');
+    const cartPage = document.getElementById('cartPage');
+    const checkoutPage = document.getElementById('checkoutPage');
+    const loginPage = document.getElementById('loginPage');
+    const registerPage = document.getElementById('registerPage');
+    const profilePage = document.getElementById('profilePage');
+    const forgotPage = document.getElementById('forgotPage');
+
+    const loginLink = document.getElementById('loginLink');
+    const registerLink = document.getElementById('registerLink');
+    const profileLink = document.getElementById('profileLink');
+    const forgotLink = document.getElementById('forgotLink');
+
+    const loginForm = document.getElementById('loginForm');
+    const registerForm = document.getElementById('registerForm');
+    const forgotForm = document.getElementById('forgotForm');
+
+    const profileName = document.getElementById('profileName');
+    const profileEmail = document.getElementById('profileEmail');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    let currentUser = null;
+
+    loginLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      homePage.style.display = 'none';
+      favoritesPage.style.display = 'none';
+      cartPage.style.display = 'none';
+      checkoutPage.style.display = 'none';
+      registerPage.style.display = 'none';
+      profilePage.style.display = 'none';
+      forgotPage.style.display = 'none';
+      loginPage.style.display = 'block';
+    });
+
+    registerLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      homePage.style.display = 'none';
+      favoritesPage.style.display = 'none';
+      cartPage.style.display = 'none';
+      checkoutPage.style.display = 'none';
+      loginPage.style.display = 'none';
+      profilePage.style.display = 'none';
+      forgotPage.style.display = 'none';
+      registerPage.style.display = 'block';
+    });
+
+    profileLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      homePage.style.display = 'none';
+      favoritesPage.style.display = 'none';
+      cartPage.style.display = 'none';
+      checkoutPage.style.display = 'none';
+      loginPage.style.display = 'none';
+      registerPage.style.display = 'none';
+      forgotPage.style.display = 'none';
+      profilePage.style.display = 'block';
+    });
+
+    forgotLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      homePage.style.display = 'none';
+      favoritesPage.style.display = 'none';
+      cartPage.style.display = 'none';
+      checkoutPage.style.display = 'none';
+      loginPage.style.display = 'none';
+      registerPage.style.display = 'none';
+      profilePage.style.display = 'none';
+      forgotPage.style.display = 'block';
+    });
+
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const emailOrLogin = loginForm.querySelector('input[type="text"]').value;
+      currentUser = { name: "Foydalanuvchi", email: emailOrLogin };
+      profileName.textContent = currentUser.name;
+      profileEmail.textContent = currentUser.email;
+      alert('✅ Muvaffaqiyatli kirildi!');
+      homePage.style.display = 'block';
+      loginPage.style.display = 'none';
+    });
+
+    registerForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = registerForm.querySelector('input[placeholder="Ism Familiya"]').value;
+      const email = registerForm.querySelector('input[type="email"]').value;
+      currentUser = { name: name, email: email }
+</script></body></html>
